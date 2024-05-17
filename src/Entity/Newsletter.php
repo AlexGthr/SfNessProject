@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\NewsletterRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -22,6 +24,17 @@ class Newsletter
 
     #[ORM\Column(type: Types::TEXT)]
     private ?string $content = null;
+
+    /**
+     * @var Collection<int, Abonne>
+     */
+    #[ORM\ManyToMany(targetEntity: Abonne::class, mappedBy: 'inscription')]
+    private Collection $abonnes;
+
+    public function __construct()
+    {
+        $this->abonnes = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -60,6 +73,33 @@ class Newsletter
     public function setContent(string $content): static
     {
         $this->content = $content;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Abonne>
+     */
+    public function getAbonnes(): Collection
+    {
+        return $this->abonnes;
+    }
+
+    public function addAbonne(Abonne $abonne): static
+    {
+        if (!$this->abonnes->contains($abonne)) {
+            $this->abonnes->add($abonne);
+            $abonne->addInscription($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAbonne(Abonne $abonne): static
+    {
+        if ($this->abonnes->removeElement($abonne)) {
+            $abonne->removeInscription($this);
+        }
 
         return $this;
     }

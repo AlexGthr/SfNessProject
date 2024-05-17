@@ -20,6 +20,12 @@ class Review
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $message = null;
 
+    #[ORM\ManyToOne(inversedBy: 'write')]
+    private ?User $users = null;
+
+    #[ORM\ManyToOne(inversedBy: 'reviews')]
+    private ?Product $evaluer = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -45,6 +51,30 @@ class Review
     public function setMessage(?string $message): static
     {
         $this->message = $message;
+
+        return $this;
+    }
+
+    public function getUsers(): ?User
+    {
+        return $this->users;
+    }
+
+    public function setUsers(?User $users): static
+    {
+        $this->users = $users;
+
+        return $this;
+    }
+
+    public function getEvaluer(): ?Product
+    {
+        return $this->evaluer;
+    }
+
+    public function setEvaluer(?Product $evaluer): static
+    {
+        $this->evaluer = $evaluer;
 
         return $this;
     }

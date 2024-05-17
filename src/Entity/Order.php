@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\OrderRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -41,6 +43,30 @@ class Order
 
     #[ORM\Column(nullable: true)]
     private ?float $totalPrice = null;
+
+    #[ORM\ManyToOne(inversedBy: 'livrer')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Address $userAdress = null;
+
+    #[ORM\ManyToOne(inversedBy: 'orders')]
+    private ?User $command = null;
+
+    #[ORM\ManyToOne(inversedBy: 'orders')]
+    private ?Payment $payment = null;
+
+    #[ORM\ManyToOne(inversedBy: 'orders')]
+    private ?Retrait $retrait = null;
+
+    /**
+     * @var Collection<int, Product>
+     */
+    #[ORM\ManyToMany(targetEntity: Product::class, inversedBy: 'orders')]
+    private Collection $panier;
+
+    public function __construct()
+    {
+        $this->panier = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -151,6 +177,78 @@ class Order
     public function setTotalPrice(?float $totalPrice): static
     {
         $this->totalPrice = $totalPrice;
+
+        return $this;
+    }
+
+    public function getUserAdress(): ?Address
+    {
+        return $this->userAdress;
+    }
+
+    public function setUserAdress(?Address $userAdress): static
+    {
+        $this->userAdress = $userAdress;
+
+        return $this;
+    }
+
+    public function getCommand(): ?User
+    {
+        return $this->command;
+    }
+
+    public function setCommand(?User $command): static
+    {
+        $this->command = $command;
+
+        return $this;
+    }
+
+    public function getPayment(): ?Payment
+    {
+        return $this->payment;
+    }
+
+    public function setPayment(?Payment $payment): static
+    {
+        $this->payment = $payment;
+
+        return $this;
+    }
+
+    public function getRetrait(): ?Retrait
+    {
+        return $this->retrait;
+    }
+
+    public function setRetrait(?Retrait $retrait): static
+    {
+        $this->retrait = $retrait;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Product>
+     */
+    public function getPanier(): Collection
+    {
+        return $this->panier;
+    }
+
+    public function addPanier(Product $panier): static
+    {
+        if (!$this->panier->contains($panier)) {
+            $this->panier->add($panier);
+        }
+
+        return $this;
+    }
+
+    public function removePanier(Product $panier): static
+    {
+        $this->panier->removeElement($panier);
 
         return $this;
     }

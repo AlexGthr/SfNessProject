@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\AbonneRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: AbonneRepository::class)]
@@ -18,6 +20,17 @@ class Abonne
 
     #[ORM\Column]
     private ?bool $isValid = null;
+
+    /**
+     * @var Collection<int, Newsletter>
+     */
+    #[ORM\ManyToMany(targetEntity: Newsletter::class, inversedBy: 'abonnes')]
+    private Collection $inscription;
+
+    public function __construct()
+    {
+        $this->inscription = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -44,6 +57,30 @@ class Abonne
     public function setValid(bool $isValid): static
     {
         $this->isValid = $isValid;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Newsletter>
+     */
+    public function getInscription(): Collection
+    {
+        return $this->inscription;
+    }
+
+    public function addInscription(Newsletter $inscription): static
+    {
+        if (!$this->inscription->contains($inscription)) {
+            $this->inscription->add($inscription);
+        }
+
+        return $this;
+    }
+
+    public function removeInscription(Newsletter $inscription): static
+    {
+        $this->inscription->removeElement($inscription);
 
         return $this;
     }

@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\AddressRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: AddressRepository::class)]
@@ -27,6 +29,20 @@ class Address
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $city = null;
+
+    #[ORM\ManyToOne(inversedBy: 'address')]
+    private ?User $users = null;
+
+    /**
+     * @var Collection<int, Order>
+     */
+    #[ORM\OneToMany(targetEntity: Order::class, mappedBy: 'userAdress')]
+    private Collection $livrer;
+
+    public function __construct()
+    {
+        $this->livrer = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -89,6 +105,48 @@ class Address
     public function setCity(?string $city): static
     {
         $this->city = $city;
+
+        return $this;
+    }
+
+    public function getUsers(): ?User
+    {
+        return $this->users;
+    }
+
+    public function setUsers(?User $users): static
+    {
+        $this->users = $users;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Order>
+     */
+    public function getLivrer(): Collection
+    {
+        return $this->livrer;
+    }
+
+    public function addLivrer(Order $livrer): static
+    {
+        if (!$this->livrer->contains($livrer)) {
+            $this->livrer->add($livrer);
+            $livrer->setUserAdress($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLivrer(Order $livrer): static
+    {
+        if ($this->livrer->removeElement($livrer)) {
+            // set the owning side to null (unless already changed)
+            if ($livrer->getUserAdress() === $this) {
+                $livrer->setUserAdress(null);
+            }
+        }
 
         return $this;
     }

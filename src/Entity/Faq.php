@@ -20,6 +20,9 @@ class Faq
     #[ORM\Column(type: Types::TEXT)]
     private ?string $answer = null;
 
+    #[ORM\ManyToOne(inversedBy: 'theme')]
+    private ?Theme $theme = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -45,6 +48,18 @@ class Faq
     public function setAnswer(string $answer): static
     {
         $this->answer = $answer;
+
+        return $this;
+    }
+
+    public function getTheme(): ?Theme
+    {
+        return $this->theme;
+    }
+
+    public function setTheme(?Theme $theme): static
+    {
+        $this->theme = $theme;
 
         return $this;
     }
