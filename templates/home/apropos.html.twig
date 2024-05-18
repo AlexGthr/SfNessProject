@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}A propos {% endblock %}
+
+{% block body %}
+
+<h1>Ness Primeur</h1>
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+
+<h2>Des questions ?</h2>
+
+{% if faqs %}
+    {% for faq in faqs %}
+
+    <p> {{ faq.question }}</p>
+    <p> {{ faq.answer }}</p>
+        
+    {% endfor %}
+{% else %}
+ <p> pouf </p>
+{% endif %}
+
+{% endblock %}

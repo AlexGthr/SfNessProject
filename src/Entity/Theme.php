@@ -54,6 +54,11 @@ class Theme
         return $this->theme;
     }
 
+    public function __toString() 
+    {
+        return $this->name;
+    }
+
     public function addTheme(Faq $theme): static
     {
         if (!$this->theme->contains($theme)) {
