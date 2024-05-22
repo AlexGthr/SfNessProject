@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajouter un produit{% endblock %}
+
+{% block body %}
+
+{{ form_start(formAddProduct) }}
+
+
+    {{ form_row(formAddProduct.designation) }}
+    {{ form_row(formAddProduct.description) }}
+    {{ form_row(formAddProduct.price) }}
+    {{ form_row(formAddProduct.stock) }}
+    {{ form_row(formAddProduct.tag) }}
+    {{ form_row(formAddProduct.categoriser) }}
+    {{ form_row(formAddProduct.picture) }}
+    {{ form_row(formAddProduct.valider) }}
+
+
+{{ form_end(formAddProduct) }}
+
+{% endblock %}
