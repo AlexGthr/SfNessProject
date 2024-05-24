@@ -4,20 +4,37 @@
 
 {% block body %}
 
-<h1>Ness Primeur</h1>
-<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+<section class="about">
+    <h1>Ness Primeur</h1>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+</section>
 
-<h2>Des questions ?</h2>
-
-{% if faqs %}
-    {% for faq in faqs %}
-
-    <p> {{ faq.question }}</p>
-    <p> {{ faq.answer }}</p>
-        
-    {% endfor %}
-{% else %}
- <p> pouf </p>
-{% endif %}
+<section class="faq">
+    <h2>Des questions ?</h2>
+    <div class="faq-item">
+        <button class="faq-question">Lorem ipsum dolor sit amet ?</button>
+        <div class="faq-answer">
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua !</p>
+        </div>
+    </div>
+    <div class="faq-item">
+        <button class="faq-question">Lorem ipsum dolor sit amet ?</button>
+        <div class="faq-answer">
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua !</p>
+        </div>
+    </div>
+    <div class="faq-item">
+        <button class="faq-question">Lorem ipsum dolor sit amet ?</button>
+        <div class="faq-answer">
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua !</p>
+        </div>
+    </div>
+    <div class="faq-item">
+        <button class="faq-question">Lorem ipsum dolor sit amet ?</button>
+        <div class="faq-answer">
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua !</p>
+        </div>
+    </div>
+</section>
 
 {% endblock %}
