@@ -4,6 +4,9 @@
 
 {% block body %}
 
+{% if app.user %}
+    {{ app.user.email }}
+{% endif %}
 <section id="NessPrimeur">
     <p>Image background + texte</p>
 </section>
