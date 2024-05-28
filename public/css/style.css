@@ -17,3 +17,8 @@
     gap: 20px;
     list-style: none;
 }
+
+.listProduit {
+    display: flex;
+    gap: 15px;
+}

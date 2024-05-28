@@ -1,6 +1,3 @@
-$(document).ready(function(){
-    $('.faq-question').click(function() {
-        $(this).next('.faq-answer').slideToggle();
-        $('.faq-answer').not($(this).next()).slideUp();
-    });
+document.getElementById('burger-menu').addEventListener('click', () => {
+    document.getElementById('nav-links').classList.toggle('active');
 });

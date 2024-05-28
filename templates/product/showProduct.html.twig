@@ -4,6 +4,26 @@
 
 {% block body %}
 
-<p>Detail produit</p>
+{% if product %}
+    <p><strong>Nom du produit :</strong> {{ product.designation }} </p>
+    <p><strong>Catégorie du produit :</strong> {{ product.categoriser }}</p>
+    <p><strong>Description :</strong> {{ product.description }}</p>
+    <p><strong>Prix :</strong> {{ product.price }}</p>
+    <p><strong>Stock :</strong> {{ product.stock }}</p>
+
+    {% if product.reviews|length > 0 %}
+        <p> --- AVIS --- </p> <br>
+        {% for review in product.reviews %}
+            <ul>
+                <li><strong>Nom : </strong> {% set username = review.users.email|split('@')|first %} {{ username|capitalize }}</li>
+                <li> Note : {{ review.rating }}</li>
+                <li> Message : {{ review.message }} </li>
+            </ul>
+        {% endfor %}
+    {% else %}
+    <p> AUCUN AVIS ACTUELLEMENT </p>
+    {% endif %}
+    
+    {% endif %}
 
 {% endblock %}

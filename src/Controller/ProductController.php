@@ -29,17 +29,17 @@ class ProductController extends AbstractController
         ]);
     }
 
-    #[Route('/produit/{id}', name: 'app_show_product')]
+    #[Route('/produit/{id}', name: 'show_product')]
     public function show_product(ProductRepository $productRepository, Product $product, $id = null): Response
     {
 
-        $products = $productRepository->find($id);
+        $product = $productRepository->find($id);
 
-        if ($products) {
+        if ($product) {
 
             return $this->render('product/showProduct.html.twig', [
                 'controller_name' => 'ProductController',
-                'products' => $products
+                'product' => $product
             ]);
 
         } else {

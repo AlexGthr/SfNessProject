@@ -13,7 +13,35 @@
 </section>
 
 <section class="bandeau_annonce">
-    <p>Liste des produits</p>
+    {% if products %}
+        <p>Nombre de produit : {{ products|length }}</p>
+
+        <div class="listProduit">
+        {% for product in products %}
+            <div class="produit">
+
+                {% if product.categoriser %}
+                    <p><strong>Catégorie du produit :</strong> {{ product.categoriser }}</p>
+                {% else %}
+                    <p><strong>Catégorie du produit :</strong> NULL</p>            
+                {% endif %}
+
+                <p><strong>Nom du produit :</strong> <a href="{{ path('show_product', {id: product.id}) }}">{{ product.designation }}</a></p>
+
+                {% if product.tag|length > 0 %}
+                        {% for tag in product.tag %}
+                            <p>Tag :<i> {{ tag }}</i></p>
+                        {% endfor %}
+                {% else %}
+                    <p>Tag :<i> NULL</i></p>
+                {% endif %}
+
+                <p>Nombre d'avis : {{ product.reviews|length }} </p>
+                 <p> -- FAIRE L'AFFICHAGE DE LA MOYENNE DES NOTES -- </p>
+            </div>
+        {% endfor %}
+        </div>
+    {% endif %}
 </section>
 
 {% endblock %}

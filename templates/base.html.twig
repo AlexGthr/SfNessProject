@@ -58,6 +58,11 @@
             {% endif %}
         </ul>
 
+        {% if app.user %}
+            <p> {{ user.email }} - {{ user.roles }}</p>
+            {% else %}
+            <p><strong>Non connecté</strong></p>
+        {% endif %}
         {% block body %}{% endblock %}
 
     </body>
