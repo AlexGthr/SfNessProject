@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\Tag;
 use App\Entity\User;
 use App\Entity\Order;
+use App\Form\TagType;
 use App\Entity\Picture;
 use App\Entity\Product;
 use App\Entity\Category;
@@ -16,6 +17,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
 class ProductType extends AbstractType
 {
@@ -43,32 +45,33 @@ class ProductType extends AbstractType
                     'class' => 'form-control'
                 ]
             ])
-            ->add('tag', EntityType::class, [
-                'class' => Tag::class,
-                'choice_label' => 'id',
-                'multiple' => true,
-                'required' => false,
+            ->add('tag', CollectionType::class, [
+                'entry_type' => TagType::class,
+                'allow_add' => true,
+                'allow_delete' => true,
+                'by_reference' => false,
+                'entry_options' => ['label' => false],
                 'attr' => [
-                    'class' => 'form-select'
+                    'class' => 'form-control'
                 ]
             ])
-            ->add('categoriser', EntityType::class, [
-                'class' => Category::class,
-                'choice_label' => 'id',
-                'required' => false,
-                'attr' => [
-                    'class' => 'form-select'
-                ]
-            ])
-            ->add('picture', EntityType::class, [
-                'class' => Picture::class,
-                'choice_label' => 'id',
-                'multiple' => true,
-                'required' => false,
-                'attr' => [
-                    'class' => 'form-select'
-                ]
-            ])
+            // ->add('categoriser', EntityType::class, [
+            //     'class' => Category::class,
+            //     'choice_label' => 'id',
+            //     'required' => false,
+            //     'attr' => [
+            //         'class' => 'form-select'
+            //     ]
+            // ])
+            // ->add('picture', EntityType::class, [
+            //     'class' => Picture::class,
+            //     'choice_label' => 'id',
+            //     'multiple' => true,
+            //     'required' => false,
+            //     'attr' => [
+            //         'class' => 'form-select'
+            //     ]
+            // ])
             ->add('valider', SubmitType::class, [
                 'attr' => [
                     'class' => 'buttonSubmit'

@@ -59,7 +59,7 @@
         </ul>
 
         {% if app.user %}
-            <p> {{ user.email }} - {{ user.roles }}</p>
+            <p> {{ app.user.email }} - {{ app.user.roles|join(', ') }}</p>
             {% else %}
             <p><strong>Non connecté</strong></p>
         {% endif %}

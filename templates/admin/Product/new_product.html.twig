@@ -4,16 +4,36 @@
 
 {% block body %}
 
+
 {{ form_start(formAddProduct) }}
-
-
     {{ form_row(formAddProduct.designation) }}
     {{ form_row(formAddProduct.description) }}
     {{ form_row(formAddProduct.price) }}
     {{ form_row(formAddProduct.stock) }}
-    {{ form_row(formAddProduct.tag) }}
-    {{ form_row(formAddProduct.categoriser) }}
-    {{ form_row(formAddProduct.picture) }}
+
+    <h3>Tags</h3> <button type="button" class="btn btn-success addTag">Add tag</button>
+    <div id="tag" data-prototype="{{ form_widget(formAddProduct.tag.vars.prototype)|e('html_attr') }}">
+        {{ form_widget(formAddProduct.tag) }}
+    </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    var collectionHolder = document.querySelector('#tag');
+    const addTagButton = document.querySelector('.addTag')
+
+    addTagButton.addEventListener('click', function() {
+        var prototype = collectionHolder.dataset.prototype;
+        var index = collectionHolder.dataset.index * 1 || collectionHolder.querySelectorAll('input').length;
+        var newForm = prototype.replace(/__name__/g, index);
+
+        collectionHolder.dataset.index = index + 1;
+
+        var newFormDiv = document.createElement('div');
+        newFormDiv.innerHTML = newForm;
+        collectionHolder.appendChild(newFormDiv);
+    });
+});
+</script>
     {{ form_row(formAddProduct.valider) }}
 
 
