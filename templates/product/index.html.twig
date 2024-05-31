@@ -38,7 +38,9 @@
 
                 <p>Nombre d'avis : {{ product.reviews|length }} </p>
                  <p> -- FAIRE L'AFFICHAGE DE LA MOYENNE DES NOTES -- </p>
+                 <a href="{{ path('app_addPanier', {'id': product.id}) }}" class="btn btn-success">Ajoutez au panier</a>
             </div>
+
         {% endfor %}
         </div>
     {% endif %}
