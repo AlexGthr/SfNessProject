@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Product;
 use App\Repository\ProductRepository;
+use App\Service\Panier\PanierService;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -83,19 +84,10 @@ class ProductController extends AbstractController
     }
 
     #[Route('/panier/add/{id}', name: 'app_addPanier')]
-    public function addPanier($id, SessionInterface $session): Response
+    public function addPanier($id, PanierService $panierService): Response
     {
 
-        $panier = $session->get('panier', []);
-
-        if (!empty($panier[$id])) {
-            $panier[$id]++;
-        } else {
-            $panier[$id] = 1;
-        }
-
-
-        $session->set('panier', $panier);
+        $panierService->add($id);
 
         return $this->redirectToRoute('app_product');
     }
