@@ -19,9 +19,13 @@
             {% for item in items %}
                 <tr>
                     <td>{{ item.product.designation }}</td>
-                    <td>{{ item.product.price }}</td>
-                    <td>{{ item.quantity }}</td>
-                    <td>{{ item.product.price * item.quantity}}</td>
+                    <td>{{ item.product.price|number_format(2, '.') }} €</td>
+                    <td>
+                        <a href="{{ path('app_downQuantity', {'id' : item.product.id})}}" class="btn btn-danger btn-sm"> - </a>
+                        {{ item.quantity }}
+                        <a href="{{ path('app_addQuantity', {'id' : item.product.id})}}" class="btn btn-success btn-sm"> + </a>
+                    </td>
+                    <td>{% set totalPriceProduct = item.product.price * item.quantity %} {{ totalPriceProduct|number_format(2, '.') }} €</td>
                     <td>
                         <a href="{{ path('app_removeItemPanier', {'id' : item.product.id})}}" class="btn btn-danger btn-sm">
                             <i class="fas fa-trash"></i>
@@ -33,9 +37,9 @@
         <tfoot>
             <tr>
                 <td colspan="3" class="text-right">Total :</td>
-                <td>{{ total }}</td>
-                <td> <a href="" class="btn btn-danger btn-sm">
-                        <i class="fas fa-trash"></i>
+                <td>{{ total|number_format(2, '.') }} €</td>
+                <td> <a href="{{ path('app_deletePanier')}}" class="btn btn-danger btn-sm">
+                        Vider le panier
                 </a></td>
             </tr>
         </tfoot>

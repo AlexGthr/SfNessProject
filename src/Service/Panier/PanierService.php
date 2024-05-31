@@ -71,7 +71,7 @@ class PanierService {
         return $panierWithData;
     }
 
-    public function getTotal() 
+    public function getTotal(): float
     {
         $total = 0;
 
@@ -80,6 +80,42 @@ class PanierService {
         }
 
         return $total;
+    }
+
+    public function upQuantity($id) 
+    {
+        $panier = $this->getSession()->get('panier', []);
+
+        if (!empty($panier[$id])) {
+            $panier[$id] += 1;
+        }
+    
+        $this->getSession()->set('panier', $panier);
+    }
+
+    public function downQuantity($id) 
+    {
+        $panier = $this->getSession()->get('panier', []);
+
+        if (!empty($panier[$id])) {
+            $panier[$id] -= 1;
+            if ($panier[$id] <= 0) {
+                unset($panier[$id]);
+            }
+        }
+    
+        $this->getSession()->set('panier', $panier);
+    }
+
+    public function removeAllProduct() 
+    {
+        $panier = $this->getSession()->get('panier', []);
+
+        if (!empty($panier)) {
+            unset($panier);
+        }
+
+        $this->getSession()->set('panier', []);
     }
 }
 

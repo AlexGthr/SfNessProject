@@ -77,4 +77,28 @@ class ProductController extends AbstractController
 
         return $this->redirectToRoute('app_panier');
     }
+
+    #[Route('/panier/addQuantity/{id}', name: 'app_addQuantity')]
+    public function addQuantityPanier($id, PanierService $panierService): Response
+    {
+        $panierService->upQuantity($id);
+
+        return $this->redirectToRoute('app_panier');
+    }
+
+    #[Route('/panier/downQuantity/{id}', name: 'app_downQuantity')]
+    public function downQuantityPanier($id, PanierService $panierService): Response
+    {
+        $panierService->downQuantity($id);
+
+        return $this->redirectToRoute('app_panier');
+    }
+
+    #[Route('/panier/deletePanier', name: 'app_deletePanier')]
+    public function deletePanier(PanierService $panierService): Response
+    {
+        $panierService->removeAllProduct();
+
+        return $this->redirectToRoute('app_panier');
+    }
 }
