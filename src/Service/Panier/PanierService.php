@@ -25,7 +25,7 @@ class PanierService {
         return $this->requestStack->getSession();
     }
 
-    public function add(int $id) 
+    public function add(int $id)
     {
 
         $panier = $this->getSession()->get('panier', []);

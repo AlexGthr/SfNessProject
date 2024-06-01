@@ -64,10 +64,13 @@ class ProductController extends AbstractController
     #[Route('/panier/add/{id}', name: 'app_addPanier')]
     public function addPanier($id, PanierService $panierService): Response
     {
-
         $panierService->add($id);
-
-        return $this->redirectToRoute('app_product');
+    
+        return $this->json([
+            'code' => 200,
+            'message' => 'OK',
+            'addValide' => 'Produit ajouté au panier !'
+        ], 200);
     }
 
     #[Route('/panier/remove/{id}', name: 'app_removeItemPanier')]

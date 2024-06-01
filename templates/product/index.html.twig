@@ -38,7 +38,7 @@
 
                 <p>Nombre d'avis : {{ product.reviews|length }} </p>
                  <p> -- FAIRE L'AFFICHAGE DE LA MOYENNE DES NOTES -- </p>
-                 <a href="{{ path('app_addPanier', {'id': product.id}) }}" class="btn btn-success">Ajoutez au panier</a>
+                 <button type="button" class="js-addPanier btn btn-success" data-id="{{ product.id }}"><span class="addPanier">Ajoutez au panier</span></button>
             </div>
 
         {% endfor %}
@@ -47,3 +47,5 @@
 </section>
 
 {% endblock %}
+
+{# href="{{ path('app_addPanier', {'id': product.id}) }}" #}
