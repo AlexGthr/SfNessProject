@@ -105,8 +105,20 @@ class ProductController extends AbstractController
     public function downQuantityPanier($id, PanierService $panierService): Response
     {
         $panierService->downQuantity($id);
+        
+        $quantity = $panierService->getQuantity($id);
 
-        return $this->redirectToRoute('app_panier');
+        $totalPriceItem = $panierService->getTotalPrice($id);
+
+        $total = $panierService->getTotal();
+
+        return $this->json([
+            'code' => 200,
+            'message' => "OK",
+            'quantity' => $quantity,
+            'totalPriceItem' => number_format($totalPriceItem, 2, '.', ''),
+            'total' => number_format($total, 2, '.', '')
+        ], 200);
     }
 
     #[Route('/panier/deletePanier', name: 'app_deletePanier')]

@@ -21,7 +21,7 @@
                     <td>{{ item.product.designation }}</td>
                     <td>{{ item.product.price|number_format(2, '.') }} €</td>
                     <td>
-                        <a href="{{ path('app_downQuantity', {'id' : item.product.id})}}" class="btn btn-danger btn-sm"> - </a>
+                        <button class="btn btn-danger btn-sm downQuantity" data-id="{{ item.product.id }}"> - </button>
                         <span class="quantityProduct">{{ item.quantity }}</span>
                         <button class="btn btn-success btn-sm addQuantity" data-id="{{ item.product.id }}"> + </button>
                     </td>
