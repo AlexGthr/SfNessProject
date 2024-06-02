@@ -86,7 +86,19 @@ class ProductController extends AbstractController
     {
         $panierService->upQuantity($id);
 
-        return $this->redirectToRoute('app_panier');
+        $quantity = $panierService->getQuantity($id);
+
+        $totalPriceItem = $panierService->getTotalPrice($id);
+
+        $total = $panierService->getTotal();
+
+        return $this->json([
+            'code' => 200,
+            'message' => "OK",
+            'quantity' => $quantity,
+            'totalPriceItem' => number_format($totalPriceItem, 2, '.', ''),
+            'total' => number_format($total, 2, '.', '')
+        ], 200);
     }
 
     #[Route('/panier/downQuantity/{id}', name: 'app_downQuantity')]

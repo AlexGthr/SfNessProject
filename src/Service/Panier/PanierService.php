@@ -25,7 +25,7 @@ class PanierService {
         return $this->requestStack->getSession();
     }
 
-    public function add(int $id)
+    public function add(int $id) 
     {
 
         $panier = $this->getSession()->get('panier', []);
@@ -116,6 +116,26 @@ class PanierService {
         }
 
         $this->getSession()->set('panier', []);
+    }
+
+    public function getQuantity($id) {
+        $panier = $this->getSession()->get('panier', []);
+
+        if (!empty($panier[$id])) {
+            return $panier[$id];
+        }
+    }
+
+    public function getTotalPrice($id) {
+        $panier = $this->getSession()->get('panier', []);
+
+        if (!empty($panier[$id])) {
+            $price = $this->productRepository->find($id);
+
+            $totalPrice = $price->getPrice() * $panier[$id];
+
+            return $totalPrice;
+        }
     }
 }
 
