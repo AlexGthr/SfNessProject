@@ -62,8 +62,26 @@ class ProductController extends AbstractController
     }
 
     #[Route('/panier/add/{id}', name: 'app_addPanier')]
-    public function addPanier($id, PanierService $panierService): Response
+    public function addPanier($id, PanierService $panierService, ProductRepository $productRepository): Response
     {
+        // Vérification si le produit existe
+        $product = $productRepository->find($id);
+        if (!$product) {
+            return $this->json([
+                'code' => 404,
+                'message' => 'Product not found',
+            ], 404);
+        }
+
+        // Vérification si l'utilisateur a le droit de modifier ce produit
+        $user = $this->getUser();
+        if (!$user) {
+            return $this->json([
+                'code' => 403,
+                'message' => 'Access denied',
+            ], 403);
+        }
+
         $panierService->add($id);
     
         return $this->json([
@@ -74,8 +92,26 @@ class ProductController extends AbstractController
     }
 
     #[Route('/panier/remove/{id}', name: 'app_removeItemPanier')]
-    public function removeItemPanier($id, PanierService $panierService): Response
+    public function removeItemPanier($id, PanierService $panierService, ProductRepository $productRepository): Response
     {
+        // Vérification si le produit existe
+        $product = $productRepository->find($id);
+        if (!$product) {
+            return $this->json([
+                'code' => 404,
+                'message' => 'Product not found',
+            ], 404);
+        }
+
+        // Vérification si l'utilisateur a le droit de modifier ce produit
+        $user = $this->getUser();
+        if (!$user) {
+            return $this->json([
+                'code' => 403,
+                'message' => 'Access denied',
+            ], 403);
+        }
+
         $panierService->remove($id);
         $total = $panierService->getTotal();
 
@@ -87,8 +123,26 @@ class ProductController extends AbstractController
     }
 
     #[Route('/panier/addQuantity/{id}', name: 'app_addQuantity')]
-    public function addQuantityPanier($id, PanierService $panierService): Response
+    public function addQuantityPanier($id, PanierService $panierService, ProductRepository $productRepository): Response
     {
+        // Vérification si le produit existe
+        $product = $productRepository->find($id);
+        if (!$product) {
+            return $this->json([
+                'code' => 404,
+                'message' => 'Product not found',
+            ], 404);
+        }
+
+        // Vérification si l'utilisateur a le droit de modifier ce produit
+        $user = $this->getUser();
+        if (!$user) {
+            return $this->json([
+                'code' => 403,
+                'message' => 'Access denied',
+            ], 403);
+        }
+
         $panierService->upQuantity($id);
 
         $quantity = $panierService->getQuantity($id);
@@ -107,8 +161,26 @@ class ProductController extends AbstractController
     }
 
     #[Route('/panier/downQuantity/{id}', name: 'app_downQuantity')]
-    public function downQuantityPanier($id, PanierService $panierService): Response
+    public function downQuantityPanier($id, PanierService $panierService, ProductRepository $productRepository): Response
     {
+        // Vérification si le produit existe
+        $product = $productRepository->find($id);
+        if (!$product) {
+            return $this->json([
+                'code' => 404,
+                'message' => 'Product not found',
+            ], 404);
+        }
+
+        // Vérification si l'utilisateur a le droit de modifier ce produit
+        $user = $this->getUser();
+        if (!$user) {
+            return $this->json([
+                'code' => 403,
+                'message' => 'Access denied',
+            ], 403);
+        }
+
         $panierService->downQuantity($id);
         
         $quantity = $panierService->getQuantity($id);
@@ -129,6 +201,15 @@ class ProductController extends AbstractController
     #[Route('/panier/deletePanier', name: 'app_deletePanier')]
     public function deletePanier(PanierService $panierService): Response
     {
+        // Vérification si l'utilisateur a le droit de modifier ce produit
+        $user = $this->getUser();
+        if (!$user) {
+            return $this->json([
+                'code' => 403,
+                'message' => 'Access denied',
+            ], 403);
+        }
+
         $panierService->removeAllProduct();
 
         return $this->redirectToRoute('app_panier');

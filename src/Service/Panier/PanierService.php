@@ -2,6 +2,7 @@
 
 namespace App\Service\Panier;
 
+use App\Entity\User;
 use App\Repository\ProductRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
