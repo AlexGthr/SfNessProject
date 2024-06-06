@@ -22,30 +22,40 @@
     </head>
     <body>
         <header>
-            <nav>
                 <div class="nav_bar">
-                    <div class="logo">
+
                         <figure>
                             <img src="{{ asset('img/logonessprimeur.png') }}">
                         </figure>
-                    </div>
-                    <div class="menu">
-                        <ul>
-                            <li><a href="{{ path('app_home') }}">home</a></li>
-                            <li><a href="{{ path('app_product') }}">Produit</a></li>
-                            <li><a href="{{ path('app_contact') }}">Contact</a></li>
-                            <li><a href="{{ path('app_apropos') }}">A propos</a></li>
-                        </ul>
-                    </div>
+
+                        <nav>
+                            <ul>
+                                <li><a class="link" href="{{ path('app_home') }}">Home</a></li>
+                                <li class="deroulant"><a class="link" href="{{ path('app_product') }}">Produits <i class="fa-solid fa-chevron-down"></i></a>
+                                    <ul class="sous-menu">
+                                        <li>Fruits</li>
+                                        <li>Légumes</li>
+                                    </ul>
+                                </li>
+                                <li><a class="link" href="{{ path('app_contact') }}">Contact</a></li>
+                                <li><a class="link" href="{{ path('app_apropos') }}">A propos</a></li>
+                            </ul>
+                        </nav>
+
                     <div class="shop_user">
-                        <a href="#"><i class="fa-solid fa-cart-shopping"></i></a>
                         <ul>
-                            <li><i class="fa-solid fa-user"></i></li>
+                            <li class="boxPanier"><a href="#"><i class="fa-solid fa-cart-shopping"></i></a></li>
+                            <li class="userDeroulant"><a href="#"><i class="fa-solid fa-user"></i></a></li>
+                            <ul class="userSous-menu">
+                                <li>Mon profil</li>
+                                <li>Se déconnecter</li>
+                            </ul>
                         </ul>
                     </div>
                 </div>
-            </nav>
         </header>
+
+        <section id="wrapper_content">
         <ul>
             <li><a href="{{ path('app_home') }}">• home</a></li>
             <li><a href="{{ path('app_product') }}">• Produit</a></li>
@@ -65,6 +75,6 @@
             <p><strong>Non connecté</strong></p>
         {% endif %}
         {% block body %}{% endblock %}
-
+        </section>
     </body>
 </html>

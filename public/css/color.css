@@ -5,6 +5,7 @@
     --grey-color: #A6A6A6;
     --bg-card: #E8DDD3;
     --white-color: #ffff;
-    --bg-section: hsl(28, 47%, 83%, 0.2);
+    --bg-section: rgba(232, 210, 191, 0.2);
+    --bg-header: rgb(255, 255, 255, 0.4);
     
 }

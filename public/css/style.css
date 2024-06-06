@@ -1,4 +1,6 @@
+@import url('color.css');
 @import url('https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&display=swap');
+
 * {
     margin: 0;
     padding: 0;
@@ -6,19 +8,107 @@
     font-family: "Lexend", sans-serif;
 }
 
+body {
+    background-color: #E8D3C0;
+}
+
+header {
+    height: 110px;
+    position: fixed;
+    background-color: var(--bg-header);
+}
+
+#wrapper_content {
+    padding-top: 150px;
+}
+
 .nav_bar {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    padding: 0 30px;
+    width: 100vw;
 }
 
-.menu ul{
+.nav_bar img {
+    height: 100px;
+    width: 150px;
+}
+
+nav ul {
+    height: 100px;
     display: flex;
-    gap: 20px;
+    justify-content: center;
+    align-items: center;
+    gap: 70px;
     list-style: none;
+}
+
+.shop_user ul {
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+    list-style: none;
+}
+
+.shop_user i {
+    color: var(--second-color);
+    font-size: 2em;
+}
+
+nav a {
+    color: var(--first-color);
+    font-size: 1.8em;
+    text-decoration: none;
+}
+
+nav a i {
+    font-size: 0.8em;
+}
+
+.link{
+    position: relative;
+  }
+  
+.link:after{
+    content: '';
+    position: absolute;
+    width: 0; height: 3px;
+    display: block;
+    margin-top: 5px;
+    right: 0;
+    background: black;
+    transition: width .2s ease;
+    -webkit-transition: width .2s ease;
+}
+   
+.link:hover:after{
+    width: 100%;
+    left: 0;
+    background: black;
+}
+
+.deroulant,
+.userDeroulant {
+    position: relative;
+}
+
+.sous-menu {
+    position: absolute;
+    top: 100px;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    line-height: 0.5px;
+    z-index: 1000;
+    background-color: var(--bg-header);
 }
 
 .listProduit {
     display: flex;
     gap: 15px;
 }
+
