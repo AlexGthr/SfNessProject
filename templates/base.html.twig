@@ -13,30 +13,22 @@
         <link rel="stylesheet" href="{{ asset('css/apropos.css') }}">
         
         {% endblock %}
-
-        {% block javascripts %}
-            <script src="{{ asset('js/script.js') }}"></script>
-            <script src="{{ asset('js/ajax.js') }}"></script>
-            <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-        {% endblock %}
     </head>
     <body>
         <header>
                 <div class="nav_bar">
 
                         <figure>
-                            <img src="{{ asset('img/logonessprimeur.png') }}">
+                            <a href="{{ path('app_home') }}"><img src="{{ asset('img/logonessprimeur.png') }}"></a>
                         </figure>
 
                         <nav>
                             <ul>
                                 <li><a class="link" href="{{ path('app_home') }}">Home</a></li>
-                                <li class="deroulant"><a class="link" href="{{ path('app_product') }}">Produits <i class="fa-solid fa-chevron-down"></i></a>
-                                    <ul class="sous-menu">
-                                        <li>Fruits</li>
-                                        <li>Légumes</li>
-                                    </ul>
-                                </li>
+                                
+                                <li class="deroulant">
+                                    <a class="link" href="{{ path('app_product') }}">Produits 
+                                        <i class="fa-solid fa-chevron-down"></i></a></li>
                                 <li><a class="link" href="{{ path('app_contact') }}">Contact</a></li>
                                 <li><a class="link" href="{{ path('app_apropos') }}">A propos</a></li>
                             </ul>
@@ -44,12 +36,8 @@
 
                     <div class="shop_user">
                         <ul>
-                            <li class="boxPanier"><a href="#"><i class="fa-solid fa-cart-shopping"></i></a></li>
+                            <li class="boxPanier"><a href="{{ path('app_panier') }}"><i class="fa-solid fa-cart-shopping"></i></a></li>
                             <li class="userDeroulant"><a href="#"><i class="fa-solid fa-user"></i></a></li>
-                            <ul class="userSous-menu">
-                                <li>Mon profil</li>
-                                <li>Se déconnecter</li>
-                            </ul>
                         </ul>
                     </div>
                 </div>
@@ -76,5 +64,12 @@
         {% endif %}
         {% block body %}{% endblock %}
         </section>
+
+                {% block javascripts %}
+                <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+            <script src="{{ asset('js/script.js') }}"></script>
+            <script src="{{ asset('js/ajax.js') }}"></script>
+            <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+        {% endblock %}
     </body>
 </html>

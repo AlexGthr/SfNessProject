@@ -11,30 +11,14 @@
 
 <section class="faq">
     <h2>Des questions ?</h2>
-    <div class="faq-item">
-        <button class="faq-question">Lorem ipsum dolor sit amet ?</button>
-        <div class="faq-answer">
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua !</p>
-        </div>
-    </div>
-    <div class="faq-item">
-        <button class="faq-question">Lorem ipsum dolor sit amet ?</button>
-        <div class="faq-answer">
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua !</p>
-        </div>
-    </div>
-    <div class="faq-item">
-        <button class="faq-question">Lorem ipsum dolor sit amet ?</button>
-        <div class="faq-answer">
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua !</p>
-        </div>
-    </div>
-    <div class="faq-item">
-        <button class="faq-question">Lorem ipsum dolor sit amet ?</button>
-        <div class="faq-answer">
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua !</p>
-        </div>
-    </div>
+        {% if faqs %}
+            {% for faq in faqs %}
+            <div class="faq">
+                <div class="question_faq"> {{ faq.question }}</div>
+                <div class="answer_faq"> {{ faq.answer }} </div>
+            </div>
+            {% endfor %}
+        {% endif %}
 </section>
 
 {% endblock %}
