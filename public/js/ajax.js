@@ -30,6 +30,7 @@ document.addEventListener("DOMContentLoaded", function() {
                             // Je modifie le texte de mon span pour indiqué à l'utilisateur que tout s'est bien déroulé
                             textPanier.textContent = "Produit ajouté au panier";
                         } else {
+                            alert(response.data.message);
                             // Sinon j'informe d'une erreur dans ma console
                             console.error('Erreur lors de l\'ajout au panier');
                         }
@@ -85,6 +86,7 @@ document.addEventListener("DOMContentLoaded", function() {
                             totalPanier.textContent = response.data.total + " €";
 
                         } else { // Sinon j'informe dans ma console l'erreur
+                            alert(response.data.message);
                             console.error('Erreur lors de l\'ajout au panier');
                         }
                     })
@@ -148,6 +150,7 @@ document.addEventListener("DOMContentLoaded", function() {
                                     totalPanier.textContent = response.data.total + " €";
                                 }
                         } else { // Sinon j'informe dans ma console l'erreur
+                            alert(response.data.message);
                             console.error('Erreur lors de l\'ajout au panier');
                         }
                     })
@@ -195,6 +198,7 @@ document.addEventListener("DOMContentLoaded", function() {
                                     deleteData.innerHTML = `<td colspan="5" class="text-center">${productName} a bien été supprimé.</td>`;
                                     totalPanier.textContent = response.data.total + " €";
                         } else { // Sinon j'informe dans ma console l'erreur
+                            alert(response.data.message);
                             console.error('Erreur lors de l\'ajout au panier');
                         }
                     })

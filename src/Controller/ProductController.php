@@ -70,7 +70,7 @@ class ProductController extends AbstractController
             return $this->json([
                 'code' => 404,
                 'message' => 'Product not found',
-            ], 404);
+            ], 200);
         }
 
         // Vérification si l'utilisateur a le droit de modifier ce produit
@@ -78,8 +78,8 @@ class ProductController extends AbstractController
         if (!$user) {
             return $this->json([
                 'code' => 403,
-                'message' => 'Access denied',
-            ], 403);
+                'message' => 'Vous devez être log',
+            ], 200);
         }
 
         $panierService->add($id);
@@ -100,7 +100,7 @@ class ProductController extends AbstractController
             return $this->json([
                 'code' => 404,
                 'message' => 'Product not found',
-            ], 404);
+            ], 200);
         }
 
         // Vérification si l'utilisateur a le droit de modifier ce produit
@@ -109,7 +109,7 @@ class ProductController extends AbstractController
             return $this->json([
                 'code' => 403,
                 'message' => 'Access denied',
-            ], 403);
+            ], 200);
         }
 
         $panierService->remove($id);
@@ -131,7 +131,7 @@ class ProductController extends AbstractController
             return $this->json([
                 'code' => 404,
                 'message' => 'Product not found',
-            ], 404);
+            ], 200);
         }
 
         // Vérification si l'utilisateur a le droit de modifier ce produit
@@ -140,7 +140,7 @@ class ProductController extends AbstractController
             return $this->json([
                 'code' => 403,
                 'message' => 'Access denied',
-            ], 403);
+            ], 200);
         }
 
         $panierService->upQuantity($id);
@@ -169,7 +169,7 @@ class ProductController extends AbstractController
             return $this->json([
                 'code' => 404,
                 'message' => 'Product not found',
-            ], 404);
+            ], 200);
         }
 
         // Vérification si l'utilisateur a le droit de modifier ce produit
@@ -178,7 +178,7 @@ class ProductController extends AbstractController
             return $this->json([
                 'code' => 403,
                 'message' => 'Access denied',
-            ], 403);
+            ], 200);
         }
 
         $panierService->downQuantity($id);
@@ -207,7 +207,7 @@ class ProductController extends AbstractController
             return $this->json([
                 'code' => 403,
                 'message' => 'Access denied',
-            ], 403);
+            ], 200);
         }
 
         $panierService->removeAllProduct();
