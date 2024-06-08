@@ -1,5 +1,6 @@
 @import url('color.css');
 @import url('https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Jua&display=swap');
 
 * {
     margin: 0;
@@ -105,3 +106,25 @@ nav a i {
     gap: 15px;
 }
 
+
+.title_element {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: 0px 15px;
+}
+
+.title_element h1 {
+    font-size: 2.1em;
+    color: black;
+    margin: 0;
+}
+
+.after_title {
+    width: 20%;
+    max-width: 150px;
+    height: 5px;
+    background-color: var(--second-color);
+    border-radius: 25px;
+    margin-left: 10px;
+}

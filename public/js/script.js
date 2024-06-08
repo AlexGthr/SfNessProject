@@ -8,5 +8,6 @@ $(document).ready(function() {
     $('.question_faq').click(function() {
         // Qui va récupéré le parent de .question_faq (this) et slideToggle .answer_faq
         $(this).parent('.faq').find('.answer_faq').slideToggle('slow');
+        $(this).find('.fa-chevron-down').toggleClass('active_faq');
     });
 });

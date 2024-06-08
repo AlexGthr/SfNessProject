@@ -4,21 +4,35 @@
 
 {% block body %}
 
-<section class="about">
-    <h1>Ness Primeur</h1>
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+<section id="wrapper_about">
+<section id="about">
+    <div class="about_infos">
+        <h1>Ness Primeur</h1>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+    </div>
+    <figure>
+        <img src="{{ asset('img/logonessprimeur.png') }}" alt="logo ness primeur">
+    </figure>
 </section>
 
-<section class="faq">
-    <h2>Des questions ?</h2>
+<section id="faq">
+
+    <div class="title_element">
+        <h1> Des questions ? </h1>
+        <hr class="after_title" />
+    </div>
+
         {% if faqs %}
+        <div class="faqs">
             {% for faq in faqs %}
             <div class="faq">
-                <div class="question_faq"> {{ faq.question }}</div>
-                <div class="answer_faq"> {{ faq.answer }} </div>
+                <div class="question_faq"> <p>{{ faq.question }}</p> <i class="fa-solid fa-chevron-down"></i></div>
+                <div class="answer_faq"> <p>{{ faq.answer }}</p> </div>
             </div>
             {% endfor %}
+        </div>
         {% endif %}
+</section>
 </section>
 
 {% endblock %}
