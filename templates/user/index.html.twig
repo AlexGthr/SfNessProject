@@ -6,10 +6,73 @@
     {% if infoUser %}
         <p> bienvenue sur votre profil ! </p>
 
-        <h2>Adresse</h2>
-        {{ form_start(formProfil) }}
-            {{ form_widget(formProfil) }}
-            <button class="btn">Save Address</button>
-        {{ form_end(formProfil) }}
+        {% if infoUser.address is not empty %}
+
+        {% for address in infoUser.address %}
+            <form action="/addAddress/{{infoUser.id}}" method="post">
+                <div>
+                    <label for="nom">Nom :</label>
+                    <input type="text" id="nom" name="nom" value="{{address.lastName}}" required>
+                </div>
+                <div>
+                    <label for="prenom">Prénom :</label>
+                    <input type="text" id="prenom" name="prenom" value="{{address.name}}" required>
+                </div>
+                <div>
+                    <label for="adresse">Adresse :</label>
+                    <input type="text" id="adresse" name="adresse" value="{{address.address}}" required>
+                </div>
+                <div>
+                    <label for="code_postal">Code postal :</label>
+                    <input type="text" id="code_postal" name="code_postal" value="{{address.zipCode}}" required>
+                </div>
+                <div>
+                    <label for="ville">Ville :</label>
+                    <input type="text" id="ville" name="ville" value="{{address.city}}" required>
+                </div>
+                {# <div>
+                    <label for="csrf_token">CSRF Token :</label>
+                    <input type="hidden" id="csrf_token" name="csrf_token" value="votre_token_csrf_ici">
+                </div> #}
+                <div>
+                    <button type="submit">Envoyer</button>
+                </div>
+            </form>
+            
+        {% endfor %}
+            {% else %}
+
+            <form action="/addAddress/{{infoUser.id}}" method="post">
+                <div>
+                    <label for="nom">Nom :</label>
+                    <input type="text" id="nom" name="nom" required>
+                </div>
+                <div>
+                    <label for="prenom">Prénom :</label>
+                    <input type="text" id="prenom" name="prenom" required>
+                </div>
+                <div>
+                    <label for="adresse">Adresse :</label>
+                    <input type="text" id="adresse" name="adresse" required>
+                </div>
+                <div>
+                    <label for="code_postal">Code postal :</label>
+                    <input type="text" id="code_postal" name="code_postal" required>
+                </div>
+                <div>
+                    <label for="ville">Ville :</label>
+                    <input type="text" id="ville" name="ville" required>
+                </div>
+                {# <div>
+                    <label for="csrf_token">CSRF Token :</label>
+                    <input type="hidden" id="csrf_token" name="csrf_token" value="votre_token_csrf_ici">
+                </div> #}
+                <div>
+                    <button type="submit">Envoyer</button>
+                </div>
+            </form>
+
+            <p>not ok</p>
+        {% endif %}
     {% endif %}
 {% endblock %}
