@@ -41,12 +41,6 @@ class Product
     private Collection $reviews;
 
     /**
-     * @var Collection<int, Order>
-     */
-    #[ORM\ManyToMany(targetEntity: Order::class, mappedBy: 'panier')]
-    private Collection $orders;
-
-    /**
      * @var Collection<int, Tag>
      */
     #[ORM\ManyToMany(targetEntity: Tag::class, inversedBy: 'products')]
@@ -61,6 +55,12 @@ class Product
     #[ORM\ManyToMany(targetEntity: Picture::class, inversedBy: 'products')]
     private Collection $picture;
 
+    /**
+     * @var Collection<int, OrderProduct>
+     */
+    #[ORM\OneToMany(targetEntity: OrderProduct::class, mappedBy: 'product')]
+    private Collection $orderProducts;
+
     public function __construct()
     {
         $this->users = new ArrayCollection();
@@ -68,6 +68,7 @@ class Product
         $this->orders = new ArrayCollection();
         $this->tag = new ArrayCollection();
         $this->picture = new ArrayCollection();
+        $this->orderProducts = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -181,33 +182,6 @@ class Product
     }
 
     /**
-     * @return Collection<int, Order>
-     */
-    public function getOrders(): Collection
-    {
-        return $this->orders;
-    }
-
-    public function addOrder(Order $order): static
-    {
-        if (!$this->orders->contains($order)) {
-            $this->orders->add($order);
-            $order->addPanier($this);
-        }
-
-        return $this;
-    }
-
-    public function removeOrder(Order $order): static
-    {
-        if ($this->orders->removeElement($order)) {
-            $order->removePanier($this);
-        }
-
-        return $this;
-    }
-
-    /**
      * @return Collection<int, Tag>
      */
     public function getTag(): Collection
@@ -263,6 +237,36 @@ class Product
     public function removePicture(Picture $picture): static
     {
         $this->picture->removeElement($picture);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, OrderProduct>
+     */
+    public function getOrderProducts(): Collection
+    {
+        return $this->orderProducts;
+    }
+
+    public function addOrderProduct(OrderProduct $orderProduct): static
+    {
+        if (!$this->orderProducts->contains($orderProduct)) {
+            $this->orderProducts->add($orderProduct);
+            $orderProduct->setProduct($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOrderProduct(OrderProduct $orderProduct): static
+    {
+        if ($this->orderProducts->removeElement($orderProduct)) {
+            // set the owning side to null (unless already changed)
+            if ($orderProduct->getProduct() === $this) {
+                $orderProduct->setProduct(null);
+            }
+        }
 
         return $this;
     }

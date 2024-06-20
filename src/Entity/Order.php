@@ -58,14 +58,15 @@ class Order
     private ?Retrait $retrait = null;
 
     /**
-     * @var Collection<int, Product>
+     * @var Collection<int, OrderProduct>
      */
-    #[ORM\ManyToMany(targetEntity: Product::class, inversedBy: 'orders')]
-    private Collection $panier;
+    #[ORM\OneToMany(targetEntity: OrderProduct::class, mappedBy: 'commande')]
+    private Collection $orderProducts;
 
     public function __construct()
     {
         $this->panier = new ArrayCollection();
+        $this->orderProducts = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -230,25 +231,31 @@ class Order
     }
 
     /**
-     * @return Collection<int, Product>
+     * @return Collection<int, OrderProduct>
      */
-    public function getPanier(): Collection
+    public function getOrderProducts(): Collection
     {
-        return $this->panier;
+        return $this->orderProducts;
     }
 
-    public function addPanier(Product $panier): static
+    public function addOrderProduct(OrderProduct $orderProduct): static
     {
-        if (!$this->panier->contains($panier)) {
-            $this->panier->add($panier);
+        if (!$this->orderProducts->contains($orderProduct)) {
+            $this->orderProducts->add($orderProduct);
+            $orderProduct->setCommande($this);
         }
 
         return $this;
     }
 
-    public function removePanier(Product $panier): static
+    public function removeOrderProduct(OrderProduct $orderProduct): static
     {
-        $this->panier->removeElement($panier);
+        if ($this->orderProducts->removeElement($orderProduct)) {
+            // set the owning side to null (unless already changed)
+            if ($orderProduct->getCommande() === $this) {
+                $orderProduct->setCommande(null);
+            }
+        }
 
         return $this;
     }
