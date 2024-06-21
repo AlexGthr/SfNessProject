@@ -2,11 +2,12 @@
 
 namespace App\Entity;
 
-use App\Repository\OrderRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\OrderRepository;
+use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 
 #[ORM\Entity(repositoryClass: OrderRepository::class)]
 #[ORM\Table(name: '`order`')]
@@ -60,8 +61,11 @@ class Order
     /**
      * @var Collection<int, OrderProduct>
      */
-    #[ORM\OneToMany(targetEntity: OrderProduct::class, mappedBy: 'commande')]
+    #[ORM\OneToMany(targetEntity: OrderProduct::class, mappedBy: 'commande', orphanRemoval: true, cascade: ['persist'])]
     private Collection $orderProducts;
+
+    #[ORM\Column]
+    private ?string $reference = null;
 
     public function __construct()
     {
@@ -256,6 +260,18 @@ class Order
                 $orderProduct->setCommande(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getReference(): ?int
+    {
+        return $this->reference;
+    }
+
+    public function setReference(int $reference): static
+    {
+        $this->reference = $reference;
 
         return $this;
     }
