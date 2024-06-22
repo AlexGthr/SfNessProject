@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use Datetime;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\OrderRepository;
@@ -18,22 +19,22 @@ class Order
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 100)]
+    #[ORM\Column(length: 100, nullable: true)]
     private ?string $name = null;
 
-    #[ORM\Column(length: 100)]
+    #[ORM\Column(length: 100, nullable: true)]
     private ?string $lastName = null;
 
-    #[ORM\Column(length: 10)]
+    #[ORM\Column(length: 10, nullable: true)]
     private ?string $zipCode = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $address = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $city = null;
 
-    #[ORM\Column(length: 20)]
+    #[ORM\Column(length: 20, nullable: true)]
     private ?string $phone = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
@@ -46,7 +47,7 @@ class Order
     private ?float $totalPrice = null;
 
     #[ORM\ManyToOne(inversedBy: 'livrer')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: true)]
     private ?Address $userAdress = null;
 
     #[ORM\ManyToOne(inversedBy: 'orders')]
@@ -66,6 +67,9 @@ class Order
 
     #[ORM\Column]
     private ?string $reference = null;
+
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: false)]
+    private ?\Datetime $creationDate = null;
 
     public function __construct()
     {
@@ -146,6 +150,18 @@ class Order
     public function setPhone(string $phone): static
     {
         $this->phone = $phone;
+
+        return $this;
+    }
+
+    public function getCreationDate(): ?\Datetime
+    {
+        return $this->creationDate;
+    }
+
+    public function setCreationDate(Datetime $creationDate): static
+    {
+        $this->creationDate = $creationDate;
 
         return $this;
     }

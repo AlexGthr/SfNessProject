@@ -3,6 +3,7 @@
 namespace App\Service\Panier;
 
 use App\Entity\User;
+use App\Repository\OrderRepository;
 use App\Repository\ProductRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -13,12 +14,14 @@ class PanierService {
     private RequestStack $requestStack; 
     private EntityManagerInterface $entityManager;
     private ProductRepository $productRepository;
+    private OrderRepository $orderRepository;
 
-    public function __construct(RequestStack $requestStack, EntityManagerInterface $entityManager, ProductRepository $productRepository)
+    public function __construct(RequestStack $requestStack, EntityManagerInterface $entityManager, ProductRepository $productRepository, OrderRepository $orderRepository)
     {
         $this->requestStack = $requestStack;
         $this->entityManager = $entityManager;
         $this->productRepository = $productRepository;
+        $this->orderRepository = $orderRepository;
     }
 
     private function getSession(): SessionInterface
@@ -138,6 +141,26 @@ class PanierService {
             return $totalPrice;
         }
     }
+
+    public function createReference() {
+        $date = new \DateTime();
+        $formattedDate = $date->format('Ymd');
+
+        $lastOrder = $this->orderRepository->findOneBy([], ['id' => 'DESC']);
+
+        $lastNumber = 0;
+
+        if ($lastOrder) {
+            $lastReference = $lastOrder->getReference();
+            if ($lastReference && strpos($lastReference, $formattedDate) === 0) {
+                $lastNumber = (int)substr($lastReference, -2);
+            }
+        }
+
+        $newNumber = str_pad((string)($lastNumber + 1), 2, '0', STR_PAD_LEFT);
+        return $formattedDate . '' . $newNumber;
+    }
+    
 }
 
 ?>

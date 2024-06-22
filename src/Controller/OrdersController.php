@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use DateTime;
 use App\Entity\Order;
 use App\Entity\OrderProduct;
 use App\Repository\OrderRepository;
@@ -34,9 +35,22 @@ class OrdersController extends AbstractController
 
         // Si le panier n'est pas vide, on crée la commande et la commande Produit
         $order = new Order();
-        $orderReference = uniqid();
-        $order->setReference("5555");
+
+        // On crée une nouvelle référence est on l'ajoute à la nouvelle commande
+        $reference = $panierService->createReference();
+        $order->setReference($reference);
+
+        // On défini le payement sur "false"
+        $order->setPaid(false);
+
+        // On défini l'user qui crée la commande
+        $order->setCommand($user);
+
+        // Puis on ajoute la date de création de la commande
+        $date = new \DateTime('now', new \DateTimeZone('Europe/Paris'));
+        $order->setCreationDate($date);
         
+        // On ajoute les produits dans notre OrderProduct pour garder les produits commander en BDD
         for ($i = 0; $i < count($panier); $i++) {
             
             $product = $panier[$i]['product'];
@@ -55,9 +69,12 @@ class OrdersController extends AbstractController
 
         }
         
+        // Puis on met à jour dans la BDD
         $entityManager->persist($order);
         $entityManager->flush($order);
 
+        // On supprime le panier en session et on redirige vers la nouvelle page
+        $panierService->removeAllProduct();
         return $this->redirectToRoute('app_home');
     }
 }
