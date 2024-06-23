@@ -143,20 +143,29 @@ class PanierService {
     }
 
     public function createReference() {
+
+        // Je récupère la date du jour
         $date = new \DateTime();
+        // Et je la formate en "annéemoisjour -> 20241231" par exemple
         $formattedDate = $date->format('Ymd');
 
+        // Je récupère la dernière commande qui existe
         $lastOrder = $this->orderRepository->findOneBy([], ['id' => 'DESC']);
 
+        // Je défini le dernier chiffre
         $lastNumber = 0;
 
+        // Puis je fais un check si j'ai une dernière commande pour ajuster les derniers chiffres (01/02/03 etc)
         if ($lastOrder) {
+            // Je récupère la reference de la dernière commande
             $lastReference = $lastOrder->getReference();
+            // Je compare avec strpos la date de la reference et de ma formattedDate
             if ($lastReference && strpos($lastReference, $formattedDate) === 0) {
+                // Si on retrouve la même chose, alors je récupère les deux derniers chiffre avec SUBSTR
                 $lastNumber = (int)substr($lastReference, -2);
             }
         }
-
+        // Ensuite je crée partie de la référence après la date '01 / 02 / 03' avec str_pad qui permet d'ajouter une chaine de caractère jusqu'a une longueur specifique.
         $newNumber = str_pad((string)($lastNumber + 1), 2, '0', STR_PAD_LEFT);
         return $formattedDate . '' . $newNumber;
     }

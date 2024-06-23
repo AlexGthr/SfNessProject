@@ -15,7 +15,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class OrdersController extends AbstractController
 {
-    #[Route('/ajoutOrder', name: 'add_order')]
+    #[Route('/validationPanier', name: 'add_order')]
     public function index(PanierService $panierService, ProductRepository $productRepository, OrderRepository $orderRepository, EntityManagerInterface $entityManager): Response
     {
 
@@ -40,8 +40,11 @@ class OrdersController extends AbstractController
         $reference = $panierService->createReference();
         $order->setReference($reference);
 
-        // On défini le payement sur "false"
+        // On défini le payement sur "false" et on inclus le prix total à la commande
         $order->setPaid(false);
+
+        $totalPrice = $panierService->getTotal();
+        $order->setTotalPrice($totalPrice);
 
         // On défini l'user qui crée la commande
         $order->setCommand($user);
@@ -76,5 +79,15 @@ class OrdersController extends AbstractController
         // On supprime le panier en session et on redirige vers la nouvelle page
         $panierService->removeAllProduct();
         return $this->redirectToRoute('app_home');
+    }
+
+    #[Route('/commande', name: 'add_commande')]
+    public function commande(): Response
+    {
+        // On vérifie que l'user est connecté
+        $user = $this->getUser();
+        if (!$user) {
+            return $this->redirectToRoute('app_home');
+        }
     }
 }
