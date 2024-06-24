@@ -9,6 +9,7 @@ use App\Repository\OrderRepository;
 use App\Repository\ProductRepository;
 use App\Service\Panier\PanierService;
 use Doctrine\ORM\EntityManagerInterface;
+use App\Repository\OrderProductRepository;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -86,7 +87,7 @@ class OrdersController extends AbstractController
     }
 
     #[Route('/commande/{reference}', name: 'add_commande')]
-    public function commande(OrderRepository $orderRepository, $reference = null): Response
+    public function commande(OrderRepository $orderRepository, OrderProductRepository $orderProductRepository, $reference): Response
     {
         // On vérifie que l'user est connecté
         $user = $this->getUser();
@@ -94,8 +95,13 @@ class OrdersController extends AbstractController
             return $this->redirectToRoute('app_home');
         }
 
+        $order = $orderRepository->findOneBy(['reference' => $reference]);
+        $ProductInOrder = $orderProductRepository->findBy(['commande' => $order]);
+
         return $this->render('orders/index.html.twig', [
             'controller_name' => 'OrdersController',
+            'order' => $order,
+            'products' => $ProductInOrder,
         ]);
 
         
