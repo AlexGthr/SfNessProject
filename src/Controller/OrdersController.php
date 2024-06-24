@@ -15,7 +15,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class OrdersController extends AbstractController
 {
-    #[Route('/validationPanier', name: 'add_order')]
+    #[Route('/panier/validationPanier', name: 'add_order')]
     public function index(PanierService $panierService, ProductRepository $productRepository, OrderRepository $orderRepository, EntityManagerInterface $entityManager): Response
     {
 
@@ -78,16 +78,27 @@ class OrdersController extends AbstractController
 
         // On supprime le panier en session et on redirige vers la nouvelle page
         $panierService->removeAllProduct();
-        return $this->redirectToRoute('app_home');
+        return $this->json([
+            'code' => 200,
+            'message' => "Panier validée !",
+            'reference' => $reference,
+        ], 200);
     }
 
-    #[Route('/commande', name: 'add_commande')]
-    public function commande(): Response
+    #[Route('/commande/{reference}', name: 'add_commande')]
+    public function commande(OrderRepository $orderRepository, $reference = null): Response
     {
         // On vérifie que l'user est connecté
         $user = $this->getUser();
         if (!$user) {
             return $this->redirectToRoute('app_home');
         }
+
+        return $this->render('orders/index.html.twig', [
+            'controller_name' => 'OrdersController',
+        ]);
+
+        
+
     }
 }

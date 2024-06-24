@@ -209,3 +209,53 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 });
+
+// On attend que la page soit complétement charger
+document.addEventListener("DOMContentLoaded", function() {
+    // Je récupère mon button js-downQuantity
+    let linkValidePanier = document.querySelector('button.validePanier');
+
+    // Si mon linksDownQuantity existe, alors je travail dessus :
+    if (linkValidePanier) {
+            // Lorsque que l'ont clique sur le button, on crée un événement :
+            linkValidePanier.addEventListener("click", function(event) {
+
+                // J'utilise la method preventDefault pour éviter un rechargement de la page 
+                event.preventDefault();             
+
+                let loading = document.createElement("i");
+                loading.className = "fa fa-spinner fa-spin";
+
+                linkValidePanier.appendChild(loading);
+
+                // Je défini l'url d'action
+                const url = `/panier/validationPanier`;
+
+                // J'utilise la librairie AXIOS pour crée une requete AJAX en lui indiquant l'url d'action (Method de mon controller pour ajouté une quantité dans le panier)
+                axios.get(url)
+                    .then(function(response) { // Lorsque j'ai une réponse d'AXIOS :
+
+                        // Si je reçois un code "200" (Tout s'est bien déroulé)
+                        if (response.data.code === 200) {
+                            let success = linkValidePanier.querySelector('i');
+                            success.className = "fa-solid fa-check";
+                            linkValidePanier.classList.add('success');
+
+                            let reference = response.data.reference;
+                            let nextUrl = `http://127.0.0.1:8000/commande/${reference}`;
+
+                            setTimeout(function() {
+                                window.location.href = nextUrl;
+                            }, 1000);
+
+                        } else { // Sinon j'informe dans ma console l'erreur
+                            alert(response.data.message);
+                            console.error('Erreur lors de l\'ajout au panier');
+                        }
+                    })
+                    .catch(function(error) { // Si pas de réponse d'axios, j'informe de l'erreur dans ma console
+                        console.error('Erreur lors de la requête AJAX', error);
+                    });
+            });
+    }
+});
