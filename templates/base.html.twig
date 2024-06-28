@@ -15,32 +15,43 @@
         {% endblock %}
     </head>
     <body>
-        <header>
-                <div class="nav_bar">
-
-                        <figure>
-                            <a href="{{ path('app_home') }}"><img src="{{ asset('img/logonessprimeur.png') }}"></a>
-                        </figure>
-
-                        <nav>
-                            <ul>
-                                <li><a class="link" href="{{ path('app_home') }}">Home</a></li>
-                                
-                                <li class="deroulant">
-                                    <a class="link" href="{{ path('app_product') }}">Produits 
-                                        <i class="fa-solid fa-chevron-down"></i></a></li>
-                                <li><a class="link" href="{{ path('app_contact') }}">Contact</a></li>
-                                <li><a class="link" href="{{ path('app_apropos') }}">A propos</a></li>
-                            </ul>
-                        </nav>
-
-                    <div class="shop_user">
-                        <ul>
-                            <li class="boxPanier"><a href="{{ path('app_panier') }}"><i class="fa-solid fa-cart-shopping"></i></a></li>
-                            <li class="userDeroulant"><a href="#"><i class="fa-solid fa-user"></i></a></li>
-                        </ul>
-                    </div>
+        <header class="header">
+            <div class="container">
+                <div class="logo">
+                    <img src="{{ asset('img/logonessprimeur.png')}}" alt="Logo Ness Primeur">
                 </div>
+                <nav class="menu">
+                    <div class="head">
+                        <div class="logo"><img src="{{ asset('img/logonessprimeur.png')}}" alt="Logo Ness Primeur"></div>
+                        <button type="button" class="close-menu-btn"></button>
+                    </div>
+                    <ul>
+                        <li><a href="">home</a></li>
+                        <li class="dropdown">
+                            <a href="">produit</a>
+                            <i class="fa-solid fa-chevron-down"></i>
+                                <ul class="sub-menu">
+                                    <li><a href="#"><span>produit 1</span></a></li>
+                                    <li><a href="#"><span>produit 2</span></a></li>
+                                    <li><a href="#"><span>produit 3</span></a></li>
+                                </ul>
+                        </li>
+                        <li><a href="">contact</a></li>
+                        <li><a href="">a propos</a></li>
+                        <li><a href="">teste</a></li>
+                    </ul>
+                </nav>
+                <div class="header-right">
+                    <button type="button" class="search-btn icon-btn"><i class="fa-solid fa-search"></i></button>
+                    <button type="button" class="cart-btn icon-btn"><i class="fa-solid fa-shopping-cart"></i></button>
+                    <button type="button" class="open-menu-btn">
+                        <span class="line line-1"></span>
+                        <span class="line line-2"></span>
+                        <span class="line line-3"></span>
+                    </button>
+
+                </div>
+            </div>
         </header>
 
         <section id="wrapper_content">
