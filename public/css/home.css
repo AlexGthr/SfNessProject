@@ -1,0 +1,15 @@
+@import url('style.css');
+
+#NessPrimeur {
+    height: 100vh;
+}
+.firstView {
+    position: absolute;
+    top: 0;
+    width: 100%;
+}
+
+.firstView img {
+    width: 100%;
+    height: 100vh;
+}

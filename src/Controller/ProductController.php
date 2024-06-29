@@ -73,15 +73,6 @@ class ProductController extends AbstractController
             ], 200);
         }
 
-        // Vérification si l'utilisateur a le droit de modifier ce produit
-        $user = $this->getUser();
-        if (!$user) {
-            return $this->json([
-                'code' => 403,
-                'message' => 'Vous devez être log',
-            ], 200);
-        }
-
         $panierService->add($id);
     
         return $this->json([
@@ -100,15 +91,6 @@ class ProductController extends AbstractController
             return $this->json([
                 'code' => 404,
                 'message' => 'Product not found',
-            ], 200);
-        }
-
-        // Vérification si l'utilisateur a le droit de modifier ce produit
-        $user = $this->getUser();
-        if (!$user) {
-            return $this->json([
-                'code' => 403,
-                'message' => 'Access denied',
             ], 200);
         }
 
@@ -131,15 +113,6 @@ class ProductController extends AbstractController
             return $this->json([
                 'code' => 404,
                 'message' => 'Product not found',
-            ], 200);
-        }
-
-        // Vérification si l'utilisateur a le droit de modifier ce produit
-        $user = $this->getUser();
-        if (!$user) {
-            return $this->json([
-                'code' => 403,
-                'message' => 'Access denied',
             ], 200);
         }
 
@@ -172,15 +145,6 @@ class ProductController extends AbstractController
             ], 200);
         }
 
-        // Vérification si l'utilisateur a le droit de modifier ce produit
-        $user = $this->getUser();
-        if (!$user) {
-            return $this->json([
-                'code' => 403,
-                'message' => 'Access denied',
-            ], 200);
-        }
-
         $panierService->downQuantity($id);
         
         $quantity = $panierService->getQuantity($id);
@@ -201,14 +165,6 @@ class ProductController extends AbstractController
     #[Route('/panier/deletePanier', name: 'app_deletePanier')]
     public function deletePanier(PanierService $panierService): Response
     {
-        // Vérification si l'utilisateur a le droit de modifier ce produit
-        $user = $this->getUser();
-        if (!$user) {
-            return $this->json([
-                'code' => 403,
-                'message' => 'Access denied',
-            ], 200);
-        }
 
         $panierService->removeAllProduct();
 
