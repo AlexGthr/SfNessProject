@@ -79,6 +79,38 @@
 
         </section>
 
+        <footer class="footer">
+                <div class="linkFooter">
+                    <div class="logoFooter">
+                        <a href="{{ path('app_home') }}"><img src="{{ asset('img/logonessprimeur.png')}}" alt="Logo Ness Primeur"></a>
+                            <div class="social">
+                                <a href="#"><i class="fa-brands fa-square-facebook"></i></a>
+                                <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                            </div>
+                    </div>
+                        <div class="newsletter">
+                            <h3>Rejoins la Newsletter !</h3>
+                            <p>Inscrit toi à la newsletter pour ne manquer aucun nouveaux produits et rester au courant de nos promotions !</p>
+                            <form action="">
+                                <input type="email" name="email" id="email" placeholder="Votre email ici ..."><br>
+
+                                <input type="submit" value="Valider">
+                            </form>
+                        </div>
+                        <div class="pagesFooter">
+                            <ul>
+                                <li><a href="">Home</a></li>
+                                <li><a href="">Produits</a></li>
+                                <li><a href="">Mon compte</a></li>
+                                <li><a href="">Panier</a></li>
+                                <li><a href="">A propos</a></li>
+                                <li><a href="">Contact</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <p><span class="copyright">Copyright 2024 - Mention légale | Politique de confidentialité</span></p>
+        </footer>
         {% block javascripts %}
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
             <script src="{{ asset('js/script.js') }}"></script>

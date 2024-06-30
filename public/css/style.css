@@ -216,7 +216,136 @@ body {
     color: white;
 }
 
-@media(max-width:990px){
+.footer {
+    margin-top: 20px;
+    width: 100%;
+}
+
+.linkFooter {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+}
+
+.logoFooter {
+    width: 15%;
+}
+
+.logoFooter img {
+    width: 100%;
+    height: 150px;
+}
+
+.social {
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+}
+
+.social i {
+    margin-top: 20px;
+    font-size: 50px;
+    color: var(--second-color);
+    text-shadow: 3px 3px 0.5px rgba(0, 0, 0, 1);
+}
+
+.social i:hover {
+    transform: scale(1.1);
+    transition: all 0.5s;
+}
+
+.newsletter {
+    width: 50%;
+    margin: 30px 0;
+    padding: 30px 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    border-radius: 14px;
+    box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
+}
+
+.newsletter h3 {
+    color: var(--second-color);
+    font-size: 32px;
+    text-decoration: underline;
+    font-weight: bold;
+}
+
+.newsletter > p {
+    width: 70%;
+    font-weight: 500;
+    margin: 10px 0;
+    color: var(--second-color);
+}
+
+.newsletter input[type=email] {
+    width: 500px;
+    height: 40px;
+    border-radius: 25px;
+    border: 1px solid var(--second-color);
+    padding: 0 10px;
+}
+
+.newsletter input[type=email]:focus {
+    border: 2px solid var(--second-color);
+    outline: none;
+}
+
+.newsletter input[type="submit"] {
+    font-size: 24px;
+    color: var(--second-color);
+    background-color: transparent;
+    border: 1px solid var(--second-color);
+    border-radius: 5px;
+    margin-top: 30px;
+    padding: 5px 30px;
+    cursor: pointer;
+    text-align: center;
+}
+
+input[type="submit"]:hover {
+    background-color: var(--second-color); 
+    color: white; 
+    transition: all 0.5s;
+}
+
+.pagesFooter {
+    width: 15%;
+}
+
+.pagesFooter ul {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+}
+
+.pagesFooter li {
+    list-style: none;
+}
+
+.pagesFooter li a {
+    color: var(--second-color);
+    font-size: 18px;
+    font-weight: 700;
+}
+
+
+
+.copyright {
+    display: flex;
+    justify-content: center;
+    align-items: end;
+    margin-top: 30px;
+    font-size: 12px;
+}
+
+@media(max-width:1000px){
     .header {
         padding: 12px 0;
     }
@@ -373,7 +502,61 @@ body {
     .header-right .open-menu-btn .line-3 {
         transform: translateY(8px);
     }
+
+    .linkFooter {
+        flex-direction: column;
+    }
+
+    .logoFooter {
+        width: 50%;
+    }
+
+    .logoFooter img {
+        height: 200px;
+    }
+
+    .social i {
+        font-size: 70px;
+    }
+
+    .newsletter {
+        width: 80%;
+    }
+
+    .newsletter h3 {
+        font-size: 48px;
+    }
+    
+    .newsletter > p {
+        font-size: 24px;
+        margin: 20px 0;
+    }
+
+    .newsletter input[type=email] {
+        height: 60px;
+        font-size: 20px;
+        border-radius: 50px;
+        padding: 0 20px;
+    }
+
+    .newsletter input[type="submit"] {
+        font-size: 32px;
+        padding: 5px 60px;
+    }
+
+    .pagesFooter {
+        width: 50%;
+    }
+
+    .pagesFooter li a {
+        font-size: 32px;
+    }
+
+    .copyright {
+        font-size: 18px;
+    }
 }
+
 .success {
     background-color: green;
     border-color: green;
