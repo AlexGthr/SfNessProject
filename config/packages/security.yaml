@@ -18,6 +18,10 @@ security:
             provider: app_user_provider
             custom_authenticator: App\Security\AppAuthenticator
             user_checker: App\Security\UserChecker
+            # configure the maximum login attempts
+            login_throttling:
+                max_attempts: 3          # per minute ...
+                interval: '15 minutes'   # ... or in a custom period
             logout:
                 path: app_logout
                 # where to redirect after logout

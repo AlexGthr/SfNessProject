@@ -2,12 +2,13 @@
 
 #wrapper_about {
     background-color: white;
-    padding-left: 50px;
+    /* padding-left: 50px; */
+    padding: 30px 50px;
 }
 
 #about {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
     width: 100%;
 }
@@ -31,6 +32,7 @@
 
 .about_infos h1 {
     font-size: 3em;
+    padding-bottom: 25px;
 }
 
 .about_infos p {
@@ -88,16 +90,22 @@
 }
 
 .answer_faq {
-    width: 50%;
+    width: 60%;
     height: fit-content;
     text-align: center;
-    padding: 15px;
+    padding: 20px 15px;
     background-color: hsla(28, 47%, 83%, 0.50);
     border-radius: 0px 0px 14px 14px;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
     display: none;
     align-items: center;
     justify-content: center;
+}
+
+.answer_faq p {
+    text-align: center;
+    font-size: 18px;
+    font-weight: 300;
 }
 
 .active_faq {

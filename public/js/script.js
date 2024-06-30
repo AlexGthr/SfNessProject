@@ -13,6 +13,15 @@ menu.querySelector('.dropdown > i').addEventListener("click", function() {
     this.closest(".dropdown").classList.toggle("activeMenu");
 })
 
+window.addEventListener('scroll', function() {
+    var navbar = document.querySelector('.header');
+    if (window.scrollY > 10) { // Ajuste la valeur pour la hauteur souhaitée
+        navbar.classList.add('scrolled');
+    } else {
+        navbar.classList.remove('scrolled');
+    }
+});
+
 // Quand le DOM est ready alors je crée une function :
 $(document).ready(function() {
     // Qui crée un événement sur le click de la div ".question_faq"
