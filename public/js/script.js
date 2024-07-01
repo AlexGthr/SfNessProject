@@ -22,6 +22,25 @@ window.addEventListener('scroll', function() {
     }
 });
 
+document.addEventListener('DOMContentLoaded', (event) => {
+    // Initialisation de la carte avec les coordonnées de Strasbourg
+    var map = L.map('map').setView([48.77696460348389, 7.086264763727594], 14);
+    var marker = L.marker([48.77696460348389, 7.086264763727594]).addTo(map);
+    marker.bindPopup("NESS PRIMEUR - 30 rue de Sarraltroff 57400 HILBESHEIM").openPopup();
+
+    // Ajout de la couche de tuiles OpenStreetMap
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+    }).addTo(map);
+
+    // Vérifie si les tuiles sont chargées
+    map.on('tileerror', function(error, tile) {
+        console.error('Tile loading error', error, tile);
+    });
+});
+
+
 // Quand le DOM est ready alors je crée une function :
 $(document).ready(function() {
     // Qui crée un événement sur le click de la div ".question_faq"
